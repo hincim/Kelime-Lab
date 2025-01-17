@@ -57,3 +57,16 @@ class SwappedController extends ChangeNotifier {
   }
 }
 
+class TextFieldController extends ChangeNotifier {
+  final TrueFalseModel _trueFalseModel;
+
+  TextFieldController(this._trueFalseModel);
+
+  bool get isTextField => _trueFalseModel.isTextField;
+
+  void toggleVisibility() {
+    _trueFalseModel.isToTextField();
+    notifyListeners();
+  }
+}
+

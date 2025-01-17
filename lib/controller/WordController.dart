@@ -43,4 +43,13 @@ class WordController with ChangeNotifier {
       debugPrint('Error deleting word: $e');
     }
   }
+
+  Future<void> deleteAllWords() async {
+    try {
+      await _wordDAO.deleteAllWords();
+      await fetchWords(); // Refresh the list
+    } catch (e) {
+      debugPrint('Error deleting all words: $e');
+    }
+  }
 }

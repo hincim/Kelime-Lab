@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../controller/WordController.dart';
 
 class WordsListView extends StatelessWidget {
@@ -9,7 +8,7 @@ class WordsListView extends StatelessWidget {
     return Consumer<WordController>(
       builder: (context, wordController, child) {
         if(wordController.words.isEmpty){
-          return Text("Kelime yok");
+          return Text("Kelime bulunamadı");
         }
         return ListView.builder(
           itemCount: wordController.words.length,
@@ -31,6 +30,8 @@ class WordsListView extends StatelessWidget {
                 );
               },
               child: Card(
+                elevation: 3,
+                color: Colors.white70,
                 margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                 child: Padding(
                   padding: const EdgeInsets.all(18.0),

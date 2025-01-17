@@ -90,5 +90,14 @@ class WordDAO {
       throw Exception('Kelime silinemedi: $e');
     }
   }
+
+  Future<void> deleteAllWords() async {
+    try {
+      final db = await database;
+      await db.delete('words');
+    } catch (e) {
+      throw Exception('Kelimeler silinemedi: $e');
+    }
+  }
 }
 

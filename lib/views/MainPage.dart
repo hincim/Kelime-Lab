@@ -13,44 +13,43 @@ class Mainpage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pages = [WordListPage(context), SolutionPage(context), ToolsPage(context),ContactPage(context)];
+    final pages = [WordListPage(), SolutionPage(context), ToolsPage(context),ContactPage(context)];
 
-    return ChangeNotifierProvider(
-      create: (_) => WordController()..fetchWords(),
-      child: SafeArea(
-        child: Scaffold(
-            body: Consumer<BottomNavigationController>(
-              builder: (context, controller, child) {
-                return pages[controller.page];
-              },
-            ),
-            bottomNavigationBar: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-                selectedItemColor: Colors.blueAccent,
-                currentIndex: context.watch<BottomNavigationController>().page,
-                onTap: (index) => _onItemTapped(
-                    index, context.read<BottomNavigationController>()),
-                items: [
-                  BottomNavigationBarItem(
-                      icon: Icon(
-                        Icons.home,
-                        color: Colors.blueAccent,
-                      ),
-                      label: "Anasayfa"),
-                  BottomNavigationBarItem(
-                      icon: Icon(
-                        Icons.deblur,
-                        color: Colors.blueAccent,
-                      ),
-                        label: "Alıştırma Yap"),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.menu, color: Colors.blueAccent),
-                      label: "Araçlar"),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.call, color: Colors.blueAccent),
-                      label: "İletişim"),
-                ])),
-      ),
+    return SafeArea(
+      child: Scaffold(
+          body: Consumer<BottomNavigationController>(
+            builder: (context, controller, child) {
+              return pages[controller.page];
+            },
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            elevation: 100,
+            backgroundColor: Colors.white,
+            type: BottomNavigationBarType.fixed,
+              selectedItemColor: Colors.blueAccent,
+              currentIndex: context.watch<BottomNavigationController>().page,
+              onTap: (index) => _onItemTapped(
+                  index, context.read<BottomNavigationController>()),
+              items: [
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.home,
+                      color: Colors.blueAccent,
+                    ),
+                    label: "Anasayfa"),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.deblur,
+                      color: Colors.blueAccent,
+                    ),
+                      label: "Alıştırma Yap"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.menu, color: Colors.blueAccent),
+                    label: "Araçlar"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.call, color: Colors.blueAccent),
+                    label: "İletişim"),
+              ])),
     );
   }
 }

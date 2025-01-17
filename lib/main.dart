@@ -29,7 +29,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => IndicatorController(IndicatorModel())),
         ChangeNotifierProvider(create: (context) => BottomNavigationController(BottomNavigationModel())),
         ChangeNotifierProvider(create: (context) => SwappedController(TrueFalseModel())),
-        ChangeNotifierProvider(create: (context) => WordController(),)
+        ChangeNotifierProvider(create: (context) => WordController(),),
+        ChangeNotifierProvider(create: (context) => TextFieldController(TrueFalseModel()),)
+
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
