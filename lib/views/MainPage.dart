@@ -13,7 +13,9 @@ class Mainpage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pages = [WordListPage(), SolutionPage(context), ToolsPage(context),ContactPage(context)];
+    context.read<WordController>().fetchWords();
+
+    final pages = [WordListPage(), SolutionPage(context), ToolsPage(context),ContactPage()];
 
     return SafeArea(
       child: Scaffold(

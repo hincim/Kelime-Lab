@@ -3,7 +3,9 @@ import 'package:ilk_proje/controller/BottomNavigationController.dart';
 import 'package:ilk_proje/controller/IndicatorController.dart';
 import 'package:ilk_proje/controller/WordController.dart';
 import 'package:ilk_proje/model/BottomNavigationModel.dart';
+import 'package:ilk_proje/views/ContactPage.dart';
 import 'package:ilk_proje/views/MainPage.dart';
+import 'package:ilk_proje/views/SplashScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:ilk_proje/views/LoginPage.dart';
 
@@ -21,6 +23,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MultiProvider(  // Wrap the app with ProviderScope
       providers: [
         ChangeNotifierProvider(create: (context) => PasswordControllerLoginPage(TrueFalseModel())),
@@ -30,7 +33,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => BottomNavigationController(BottomNavigationModel())),
         ChangeNotifierProvider(create: (context) => SwappedController(TrueFalseModel())),
         ChangeNotifierProvider(create: (context) => WordController(),),
-        ChangeNotifierProvider(create: (context) => TextFieldController(TrueFalseModel()),)
+        ChangeNotifierProvider(create: (context) => TextFieldController(TrueFalseModel()),),
+        ChangeNotifierProvider(create: (context) => DroppedController(TrueFalseModel()),)
 
       ],
       child: MaterialApp(
@@ -42,5 +46,6 @@ class MyApp extends StatelessWidget {
         home: Mainpage(),
       ),
     );
+
   }
 }

@@ -33,6 +33,7 @@ class WordListPage extends StatelessWidget {
                       key: ValueKey('TextField'),
                       padding: const EdgeInsets.all(3.0),
                       child: TextField(
+                        autofocus: true,
                         onChanged: (value) {
                           context
                               .read<WordController>()

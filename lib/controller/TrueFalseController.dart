@@ -70,3 +70,16 @@ class TextFieldController extends ChangeNotifier {
   }
 }
 
+class DroppedController extends ChangeNotifier {
+  final TrueFalseModel _trueFalseModel;
+
+  DroppedController(this._trueFalseModel);
+
+  bool get isDropped => _trueFalseModel.isDropped;
+
+  void toggleVisibility() {
+    _trueFalseModel.isToDropped();
+    notifyListeners();
+  }
+}
+
