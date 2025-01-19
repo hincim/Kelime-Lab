@@ -83,3 +83,20 @@ class DroppedController extends ChangeNotifier {
   }
 }
 
+class SearchWidgetController extends ChangeNotifier {
+  final TrueFalseModel _trueFalseModel;
+
+  SearchWidgetController(this._trueFalseModel);
+
+  bool get isSearch => _trueFalseModel.isSearch;
+
+  void isToSearchTrue() {
+    _trueFalseModel.isTrue();
+    notifyListeners();
+  }
+
+  void isToSearchFalse() {
+    _trueFalseModel.isFalse();
+    notifyListeners();
+  }
+}

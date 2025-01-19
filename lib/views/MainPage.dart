@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ilk_proje/controller/BottomNavigationController.dart';
+import 'package:ilk_proje/controller/TrueFalseController.dart';
 import 'package:ilk_proje/controller/WordController.dart';
+import 'package:ilk_proje/cubit/TranslateCubit.dart';
 import 'package:ilk_proje/views/ContactPage.dart';
 import 'package:ilk_proje/views/ToolsPage.dart';
 import 'package:ilk_proje/views/SolutionPage.dart';

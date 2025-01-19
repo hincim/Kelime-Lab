@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:ilk_proje/model/TrueFalseModel.dart';
+import 'package:ilk_proje/cubit/TranslateCubit.dart';
 import 'package:ilk_proje/model/Word.dart';
+import 'package:ilk_proje/util/WordAddBlocBuilder.dart';
 import 'package:provider/provider.dart';
 import 'package:ilk_proje/controller/TrueFalseController.dart';
 import '../controller/WordController.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../db/WordDAO.dart';
 
 class WordAddPage extends StatelessWidget {
   WordAddPage({super.key});
 
+
   final _textEditingControllerTr = TextEditingController();
   final _textEditingControllerEng = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Consumer<SwappedController>(
       builder: (context, swappedController, child) {
         return Scaffold(
@@ -42,8 +48,7 @@ class WordAddPage extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 32.0,
                           // Adjust font size for better hierarchy
-                          color:
-                          Colors.white, // Use black for better contrast
+                          color: Colors.white, // Use black for better contrast
                         ),
                       ),
                     ),
@@ -63,14 +68,33 @@ class WordAddPage extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const SizedBox(height: 70.0),
+                            Consumer<SearchWidgetController>(
+                              builder:
+                                  (context, searchWidgetController, child) {
+                                return searchWidgetController.isSearch
+                                    ? Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 8.0),
+                                        child: CircularProgressIndicator(
+                                          color: Colors.blueAccent,
+                                        ),
+                                      )
+                                    : Container();
+                              },
+                            ),
+                            const SizedBox(height: 8.0),
                             // Add spacing between title and fields
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 20.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                      child: Column(children: [
+                            Consumer<SearchWidgetController>(
+                              builder:
+                                  (context, searchWidgetController, child) {
+                                return Padding(
+                                  padding:
+                                      searchWidgetController.isSearch ?EdgeInsets.only(top: 20.0, bottom: 10.0):
+                                  EdgeInsets.only(top: 20, bottom: 10.0),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                          child: Column(children: [
                                         AnimatedSwitcher(
                                           duration: Duration(seconds: 1),
                                           transitionBuilder:
@@ -82,56 +106,55 @@ class WordAddPage extends StatelessWidget {
                                           },
                                           child: swappedController.isSwapped
                                               ? TextField(
-                                            key: ValueKey('turkish'),
-                                            controller: _textEditingControllerTr,
-                                            // Unique key for the TextField
-                                            decoration: InputDecoration(
-                                              floatingLabelBehavior:
-                                              FloatingLabelBehavior
-                                                  .never,
-                                              labelText:
-                                              "Türkçe",
-                                              border:
-                                              OutlineInputBorder(
-                                                borderRadius:
-                                                BorderRadius
-                                                    .circular(20.0),
-                                              ),
-                                              filled: true,
-                                              fillColor: Colors.white,
-                                              contentPadding:
-                                              const EdgeInsets.all(
-                                                  16.0),
-                                            ),
-                                          )
+                                                  key: ValueKey('turkish'),
+                                                  controller:
+                                                      _textEditingControllerTr,
+                                                  // Unique key for the TextField
+                                                  decoration: InputDecoration(
+                                                    floatingLabelBehavior:
+                                                        FloatingLabelBehavior
+                                                            .never,
+                                                    labelText: "Türkçe",
+                                                    border: OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20.0),
+                                                    ),
+                                                    filled: true,
+                                                    fillColor: Colors.white,
+                                                    contentPadding:
+                                                        const EdgeInsets.all(
+                                                            16.0),
+                                                  ),
+                                                )
                                               : TextField(
-                                            key: ValueKey('english'),
-                                            controller: _textEditingControllerEng,
-                                            // Unique key for the TextField
-                                            decoration: InputDecoration(
-                                              floatingLabelBehavior:
-                                              FloatingLabelBehavior
-                                                  .never,
-                                              labelText:
-                                              "İngilizce",
-                                              border:
-                                              OutlineInputBorder(
-                                                borderRadius:
-                                                BorderRadius
-                                                    .circular(20.0),
-                                              ),
-                                              filled: true,
-                                              fillColor: Colors.white,
-                                              contentPadding:
-                                              const EdgeInsets.all(
-                                                  16.0),
-                                            ),
-                                          ),
+                                                  key: ValueKey('english'),
+                                                  controller:
+                                                      _textEditingControllerEng,
+                                                  // Unique key for the TextField
+                                                  decoration: InputDecoration(
+                                                    floatingLabelBehavior:
+                                                        FloatingLabelBehavior
+                                                            .never,
+                                                    labelText: "İngilizce",
+                                                    border: OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20.0),
+                                                    ),
+                                                    filled: true,
+                                                    fillColor: Colors.white,
+                                                    contentPadding:
+                                                        const EdgeInsets.all(
+                                                            16.0),
+                                                  ),
+                                                ),
                                         ),
                                         const SizedBox(height: 10.0),
                                         AnimatedSwitcher(
                                           duration: Duration(seconds: 1),
-                                          transitionBuilder: (child, animation) {
+                                          transitionBuilder:
+                                              (child, animation) {
                                             return FadeTransition(
                                               opacity: animation,
                                               child: child,
@@ -139,85 +162,97 @@ class WordAddPage extends StatelessWidget {
                                           },
                                           child: swappedController.isSwapped
                                               ? TextField(
-                                            key: ValueKey('english_2'),
-                                            controller: _textEditingControllerEng,
-                                            // Unique key for the TextField
-                                            decoration: InputDecoration(
-                                              floatingLabelBehavior:
-                                              FloatingLabelBehavior
-                                                  .never,
-                                              labelText: "İngilizce",
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                BorderRadius.circular(
-                                                    20.0),
-                                              ),
-                                              filled: true,
-                                              fillColor: Colors.white,
-                                              contentPadding:
-                                              const EdgeInsets.all(
-                                                  16.0),
-                                            ),
-                                          )
+                                                  key: ValueKey('english_2'),
+                                                  controller:
+                                                      _textEditingControllerEng,
+                                                  // Unique key for the TextField
+                                                  decoration: InputDecoration(
+                                                    floatingLabelBehavior:
+                                                        FloatingLabelBehavior
+                                                            .never,
+                                                    labelText: "İngilizce",
+                                                    border: OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20.0),
+                                                    ),
+                                                    filled: true,
+                                                    fillColor: Colors.white,
+                                                    contentPadding:
+                                                        const EdgeInsets.all(
+                                                            16.0),
+                                                  ),
+                                                )
                                               : TextField(
-                                            key: ValueKey('turkish_2'),
-                                            controller: _textEditingControllerTr,
-                                            // Unique key for the TextField
-                                            decoration: InputDecoration(
-                                              floatingLabelBehavior:
-                                              FloatingLabelBehavior
-                                                  .never,
-                                              labelText: "Türkçe",
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                BorderRadius.circular(
-                                                    20.0),
-                                              ),
-                                              filled: true,
-                                              fillColor: Colors.white,
-                                              contentPadding:
-                                              const EdgeInsets.all(
-                                                  16.0),
-                                            ),
-                                          ),
+                                                  key: ValueKey('turkish_2'),
+                                                  controller:
+                                                      _textEditingControllerTr,
+                                                  // Unique key for the TextField
+                                                  decoration: InputDecoration(
+                                                    floatingLabelBehavior:
+                                                        FloatingLabelBehavior
+                                                            .never,
+                                                    labelText: "Türkçe",
+                                                    border: OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20.0),
+                                                    ),
+                                                    filled: true,
+                                                    fillColor: Colors.white,
+                                                    contentPadding:
+                                                        const EdgeInsets.all(
+                                                            16.0),
+                                                  ),
+                                                ),
                                         ),
                                       ])),
-                                  const SizedBox(width: 10.0),
-                                  // Add spacing between input and button
-                                  Consumer<SwappedController>(
-                                    builder: (context, iconController, child) {
-                                      return AnimatedSwitcher(
-                                        duration: Duration(milliseconds: 500),
-                                        transitionBuilder: (child, animation) {
-                                          return RotationTransition(
-                                            turns: Tween<double>(
-                                              begin: 0.0,
-                                              end: 0.5,
-                                            ).animate(animation),
-                                            child: child,
+                                      const SizedBox(width: 10.0),
+                                      // Add spacing between input and button
+                                      Consumer<SwappedController>(
+                                        builder:
+                                            (context, iconController, child) {
+                                          return AnimatedSwitcher(
+                                            duration:
+                                                Duration(milliseconds: 500),
+                                            transitionBuilder:
+                                                (child, animation) {
+                                              return RotationTransition(
+                                                turns: Tween<double>(
+                                                  begin: 0.0,
+                                                  end: 0.5,
+                                                ).animate(animation),
+                                                child: child,
+                                              );
+                                            },
+                                            child: IconButton(
+                                              key: ValueKey(
+                                                  iconController.isSwapped),
+                                              onPressed: () {
+                                                swappedController
+                                                    .toggleVisibility();
+                                                _textEditingControllerTr
+                                                    .clear();
+                                                _textEditingControllerEng
+                                                    .clear();
+                                              },
+                                              icon: SvgPicture.asset(
+                                                color:
+                                                    swappedController.isSwapped
+                                                        ? Colors.blue.shade800
+                                                        : Colors.blue.shade300,
+                                                'assets/icons/repeat.svg',
+                                                width: 30,
+                                                height: 30,
+                                              ),
+                                            ),
                                           );
                                         },
-                                        child: IconButton(
-                                          key: ValueKey(iconController.isSwapped),
-                                          onPressed: () {
-                                            swappedController.toggleVisibility();
-                                            _textEditingControllerTr.clear();
-                                            _textEditingControllerEng.clear();
-                                          },
-                                          icon: SvgPicture.asset(
-                                            color: swappedController.isSwapped ? Colors.blue.shade800
-                                            : Colors.blue.shade300,
-                                            'assets/icons/repeat.svg',
-                                            width: 30,
-                                            height: 30,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  )
-,
-                                ],
-                              ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
                             SizedBox(
                               width: double.infinity,
@@ -231,24 +266,61 @@ class WordAddPage extends StatelessWidget {
                                   ),
                                 ),
                                 onPressed: () {
-                                  final english = _textEditingControllerEng.text.trim();
+                                  final english =
+                                      _textEditingControllerEng.text.trim();
                                   final turkish = _textEditingControllerTr.text.trim();
 
-                                  if (english.isNotEmpty && turkish.isNotEmpty) {
+                                  if (swappedController.isSwapped == true && turkish.isNotEmpty) {
+
+                                    context.read<SearchWidgetController>().isToSearchTrue();
                                     try {
+                                      context.read<TranslateCubit>().getData(turkish, "tr-en");
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return WordAddBlocBuilder(textEditingControllerEng: _textEditingControllerEng, screenHeight: screenHeight,isSwapped: swappedController.isSwapped);
+                                        },
+                                      );
 
 
-                                      _textEditingControllerTr.clear();
-                                      _textEditingControllerEng.clear();
                                     } catch (e) {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text('Hata: ${e.toString()}')),
+                                      context.read<SearchWidgetController>().isToSearchFalse();
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                            content:
+                                                Text('Hata: ${e.toString()}')),
                                       );
                                     }
-                                  } else {
+                                  } else if(swappedController.isSwapped == false && english.isNotEmpty){
+                                    context.read<SearchWidgetController>().isToSearchTrue();
+                                    try {
+                                      context.read<TranslateCubit>().getData(english, "en-tr");
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return WordAddBlocBuilder(isSwapped: swappedController.isSwapped, screenHeight: screenHeight, textEditingControllerTr: _textEditingControllerTr);
+                                        },
+                                      );
+
+
+                                    } catch (e) {
+                                      context.read<SearchWidgetController>().isToSearchFalse();
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                            content:
+                                            Text('Hata: ${e.toString()}')),
+                                      );
+                                    }
+                                  }
+
+                                  else {
                                     // Alanlar boş bırakılmışsa uyarı göster
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text('Aramak için kelime girin')),
+                                      SnackBar(
+                                          content:
+                                              Text('Aramak için kelime girin')),
                                     );
                                   }
                                 },
@@ -272,28 +344,43 @@ class WordAddPage extends StatelessWidget {
                                     ),
                                   ),
                                   onPressed: () {
-                                    final english = _textEditingControllerEng.text.trim();
-                                    final turkish = _textEditingControllerTr.text.trim();
+                                    final english =
+                                        _textEditingControllerEng.text.trim().toLowerCase();
+                                    final turkish =
+                                        _textEditingControllerTr.text.trim().toLowerCase();
 
-                                    if (english.isNotEmpty && turkish.isNotEmpty) {
+                                    if (english.isNotEmpty &&
+                                        turkish.isNotEmpty) {
                                       try {
-                                        final word = Word(english: english, turkish: turkish);
-                                        Provider.of<WordController>(context,listen: false)
-                                            .addWord(word).then((_) => Navigator.pop(context));
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(content: Text('Kelime eklendi')),
+                                        final word = Word(
+                                            english: english, turkish: turkish);
+                                        Provider.of<WordController>(context,
+                                                listen: false)
+                                            .addWord(word)
+                                            .then(
+                                                (_) => Navigator.pop(context));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                              content: Text('Kelime eklendi')),
                                         );
                                         _textEditingControllerTr.clear();
                                         _textEditingControllerEng.clear();
                                       } catch (e) {
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(content: Text('Hata: ${e.toString()}')),
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                              content: Text(
+                                                  'Hata: ${e.toString()}')),
                                         );
                                       }
                                     } else {
                                       // Alanlar boş bırakılmışsa uyarı göster
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text('Lütfen tüm alanları doldurun!')),
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                            content: Text(
+                                                'Lütfen tüm alanları doldurun!')),
                                       );
                                     }
                                   },
