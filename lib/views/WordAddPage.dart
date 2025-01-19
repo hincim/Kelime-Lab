@@ -4,6 +4,7 @@ import 'package:ilk_proje/model/Word.dart';
 import 'package:provider/provider.dart';
 import 'package:ilk_proje/controller/TrueFalseController.dart';
 import '../controller/WordController.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../db/WordDAO.dart';
 
@@ -186,10 +187,13 @@ class WordAddPage extends StatelessWidget {
                                   Consumer<SwappedController>(
                                     builder: (context, iconController, child) {
                                       return AnimatedSwitcher(
-                                        duration: Duration(seconds: 1),
+                                        duration: Duration(milliseconds: 500),
                                         transitionBuilder: (child, animation) {
-                                          return FadeTransition(
-                                            opacity: animation,
+                                          return RotationTransition(
+                                            turns: Tween<double>(
+                                              begin: 0.0,
+                                              end: 0.5,
+                                            ).animate(animation),
                                             child: child,
                                           );
                                         },
@@ -200,12 +204,18 @@ class WordAddPage extends StatelessWidget {
                                             _textEditingControllerTr.clear();
                                             _textEditingControllerEng.clear();
                                           },
-                                          icon: Icon(iconController.isSwapped? Icons.sign_language_outlined: Icons.sign_language,
-                                              color: Colors.blueAccent),
+                                          icon: SvgPicture.asset(
+                                            color: swappedController.isSwapped ? Colors.blue.shade800
+                                            : Colors.blue.shade300,
+                                            'assets/icons/repeat.svg',
+                                            width: 30,
+                                            height: 30,
+                                          ),
                                         ),
                                       );
                                     },
-                                  ),
+                                  )
+,
                                 ],
                               ),
                             ),
@@ -213,7 +223,7 @@ class WordAddPage extends StatelessWidget {
                               width: double.infinity,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.blueAccent,
+                                  backgroundColor: Colors.blue.shade400,
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 14.0, horizontal: 40.0),
                                   shape: RoundedRectangleBorder(
@@ -226,12 +236,8 @@ class WordAddPage extends StatelessWidget {
 
                                   if (english.isNotEmpty && turkish.isNotEmpty) {
                                     try {
-                                      final word = Word(english: english, turkish: turkish);
-                                      Provider.of<WordController>(context,listen: false)
-                                          .addWord(word).then((_) => Navigator.pop(context));
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text('Kelime eklendi')),
-                                      );
+
+
                                       _textEditingControllerTr.clear();
                                       _textEditingControllerEng.clear();
                                     } catch (e) {
@@ -242,16 +248,62 @@ class WordAddPage extends StatelessWidget {
                                   } else {
                                     // Alanlar boş bırakılmışsa uyarı göster
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text('Lütfen tüm alanları doldurun!')),
+                                      SnackBar(content: Text('Aramak için kelime girin')),
                                     );
                                   }
                                 },
                                 child: Text(
-                                  "Kaydet",
+                                  "Ara",
                                   style: const TextStyle(color: Colors.white),
                                 ),
                               ),
                             ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blueAccent,
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 14.0, horizontal: 40.0),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    final english = _textEditingControllerEng.text.trim();
+                                    final turkish = _textEditingControllerTr.text.trim();
+
+                                    if (english.isNotEmpty && turkish.isNotEmpty) {
+                                      try {
+                                        final word = Word(english: english, turkish: turkish);
+                                        Provider.of<WordController>(context,listen: false)
+                                            .addWord(word).then((_) => Navigator.pop(context));
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(content: Text('Kelime eklendi')),
+                                        );
+                                        _textEditingControllerTr.clear();
+                                        _textEditingControllerEng.clear();
+                                      } catch (e) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(content: Text('Hata: ${e.toString()}')),
+                                        );
+                                      }
+                                    } else {
+                                      // Alanlar boş bırakılmışsa uyarı göster
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text('Lütfen tüm alanları doldurun!')),
+                                      );
+                                    }
+                                  },
+                                  child: Text(
+                                    "Kaydet",
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            )
                           ],
                         ),
                       ),

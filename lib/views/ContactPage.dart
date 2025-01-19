@@ -50,81 +50,82 @@ class ContactPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                AnimatedContainer(
-                  duration: Duration(milliseconds: 300),
-                  curve: Curves.easeInOut,
-                  width: screenWidth,
-                  height: controller.isDropped
-                      ? screenHeight / 10
-                      : screenHeight / 5,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.lightBlue,
-                        Colors.blueAccent,
-                      ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
+                GestureDetector(
+                  onTap: ()
+                  {
+                    controller.toggleVisibility();
+                  },
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                    width: screenWidth,
+                    height: controller.isDropped
+                        ? screenHeight / 10
+                        : screenHeight / 5,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.lightBlue,
+                          Colors.blueAccent,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(50.0),
+                        topRight: Radius.circular(50.0),
+                      ),
                     ),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(50.0),
-                      topRight: Radius.circular(50.0),
-                    ),
-                  ),
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              controller.toggleVisibility();
-                            },
-                            icon: Icon(
-                              Icons.menu,
-                              color: Colors.black,
-                              size: 30,
-                            )),
-                        controller.isDropped
-                            ? Padding(
-                                padding: const EdgeInsets.only(bottom: 15.0),
-                                child: Container(
-                                  child: Text(
-                                    "Görüş ve öneri için",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
+                    child: Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(Icons.menu),
+                          ),
+                          controller.isDropped
+                              ? Padding(
+                                  padding: const EdgeInsets.only(bottom: 15.0),
+                                  child: Container(
+                                    child: Text(
+                                      "Görüş ve öneri için",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
-                                ),
-                              )
-                            : Expanded(
-                                child: Column(
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        "Görüş ve öneri için",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold),
+                                )
+                              : Expanded(
+                                  child: Column(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          "Görüş ve öneri için",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: screenHeight / 60,
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        "sdsds@gmail.com",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold),
+                                      SizedBox(
+                                        height: screenHeight / 60,
                                       ),
-                                    )
-                                  ],
-                                ),
-                              )
-                      ],
+                                      Expanded(
+                                        child: Text(
+                                          "sdsds@gmail.com",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                )
+                        ],
+                      ),
                     ),
                   ),
                 )
