@@ -8,18 +8,14 @@ import '../controller/WordController.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../db/WordDAO.dart';
-
 class WordAddPage extends StatelessWidget {
   WordAddPage({super.key});
-
 
   final _textEditingControllerTr = TextEditingController();
   final _textEditingControllerEng = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Consumer<SwappedController>(
@@ -68,260 +64,277 @@ class WordAddPage extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Consumer<SearchWidgetController>(
-                              builder:
-                                  (context, searchWidgetController, child) {
-                                return searchWidgetController.isSearch
-                                    ? Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 8.0),
-                                        child: CircularProgressIndicator(
-                                          color: Colors.blueAccent,
-                                        ),
-                                      )
-                                    : Container();
-                              },
-                            ),
                             const SizedBox(height: 8.0),
                             // Add spacing between title and fields
-                            Consumer<SearchWidgetController>(
-                              builder:
-                                  (context, searchWidgetController, child) {
-                                return Padding(
-                                  padding:
-                                      searchWidgetController.isSearch ?EdgeInsets.only(top: 20.0, bottom: 10.0):
-                                  EdgeInsets.only(top: 20, bottom: 10.0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                          child: Column(children: [
-                                        AnimatedSwitcher(
-                                          duration: Duration(seconds: 1),
-                                          transitionBuilder:
-                                              (child, animation) {
-                                            return FadeTransition(
-                                              opacity: animation,
-                                              child: child,
-                                            );
-                                          },
-                                          child: swappedController.isSwapped
-                                              ? TextField(
-                                                  key: ValueKey('turkish'),
-                                                  controller:
-                                                      _textEditingControllerTr,
-                                                  // Unique key for the TextField
-                                                  decoration: InputDecoration(
-                                                    floatingLabelBehavior:
-                                                        FloatingLabelBehavior
-                                                            .never,
-                                                    labelText: "Türkçe",
-                                                    border: OutlineInputBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0),
-                                                    ),
-                                                    filled: true,
-                                                    fillColor: Colors.white,
-                                                    contentPadding:
-                                                        const EdgeInsets.all(
-                                                            16.0),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 20.0, bottom: 20.0),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                      child: Column(children: [
+                                    AnimatedSwitcher(
+                                      duration: Duration(seconds: 1),
+                                      transitionBuilder: (child, animation) {
+                                        return FadeTransition(
+                                          opacity: animation,
+                                          child: child,
+                                        );
+                                      },
+                                      child: swappedController.isSwapped
+                                          ? TextField(
+                                              key: ValueKey('turkish'),
+                                              controller:
+                                                  _textEditingControllerTr,
+                                              // Unique key for the TextField
+                                              decoration: InputDecoration(
+                                                floatingLabelBehavior:
+                                                    FloatingLabelBehavior.never,
+                                                labelText: "Türkçe",
+                                                border: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Colors.blue,
                                                   ),
-                                                )
-                                              : TextField(
-                                                  key: ValueKey('english'),
-                                                  controller:
-                                                      _textEditingControllerEng,
-                                                  // Unique key for the TextField
-                                                  decoration: InputDecoration(
-                                                    floatingLabelBehavior:
-                                                        FloatingLabelBehavior
-                                                            .never,
-                                                    labelText: "İngilizce",
-                                                    border: OutlineInputBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0),
-                                                    ),
-                                                    filled: true,
-                                                    fillColor: Colors.white,
-                                                    contentPadding:
-                                                        const EdgeInsets.all(
-                                                            16.0),
-                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
                                                 ),
-                                        ),
-                                        const SizedBox(height: 10.0),
-                                        AnimatedSwitcher(
-                                          duration: Duration(seconds: 1),
-                                          transitionBuilder:
-                                              (child, animation) {
-                                            return FadeTransition(
-                                              opacity: animation,
-                                              child: child,
-                                            );
-                                          },
-                                          child: swappedController.isSwapped
-                                              ? TextField(
-                                                  key: ValueKey('english_2'),
-                                                  controller:
-                                                      _textEditingControllerEng,
-                                                  // Unique key for the TextField
-                                                  decoration: InputDecoration(
-                                                    floatingLabelBehavior:
-                                                        FloatingLabelBehavior
-                                                            .never,
-                                                    labelText: "İngilizce",
-                                                    border: OutlineInputBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0),
-                                                    ),
-                                                    filled: true,
-                                                    fillColor: Colors.white,
-                                                    contentPadding:
-                                                        const EdgeInsets.all(
-                                                            16.0),
+                                                focusedBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Colors.blue,
                                                   ),
-                                                )
-                                              : TextField(
-                                                  key: ValueKey('turkish_2'),
-                                                  controller:
-                                                      _textEditingControllerTr,
-                                                  // Unique key for the TextField
-                                                  decoration: InputDecoration(
-                                                    floatingLabelBehavior:
-                                                        FloatingLabelBehavior
-                                                            .never,
-                                                    labelText: "Türkçe",
-                                                    border: OutlineInputBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0),
-                                                    ),
-                                                    filled: true,
-                                                    fillColor: Colors.white,
-                                                    contentPadding:
-                                                        const EdgeInsets.all(
-                                                            16.0),
-                                                  ),
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      20.0),
                                                 ),
-                                        ),
-                                      ])),
-                                      const SizedBox(width: 10.0),
-                                      // Add spacing between input and button
-                                      Consumer<SwappedController>(
-                                        builder:
-                                            (context, iconController, child) {
-                                          return AnimatedSwitcher(
-                                            duration:
-                                                Duration(milliseconds: 500),
-                                            transitionBuilder:
-                                                (child, animation) {
-                                              return RotationTransition(
-                                                turns: Tween<double>(
-                                                  begin: 0.0,
-                                                  end: 0.5,
-                                                ).animate(animation),
-                                                child: child,
-                                              );
-                                            },
-                                            child: IconButton(
-                                              key: ValueKey(
-                                                  iconController.isSwapped),
-                                              onPressed: () {
-                                                swappedController
-                                                    .toggleVisibility();
-                                                _textEditingControllerTr
-                                                    .clear();
-                                                _textEditingControllerEng
-                                                    .clear();
-                                              },
-                                              icon: SvgPicture.asset(
-                                                color:
-                                                    swappedController.isSwapped
-                                                        ? Colors.blue.shade800
-                                                        : Colors.blue.shade300,
-                                                'assets/icons/repeat.svg',
-                                                width: 30,
-                                                height: 30,
+                                                filled: true,
+                                                fillColor: Colors.white,
+                                                contentPadding:
+                                                    const EdgeInsets.all(16.0),
+                                              ),
+                                            )
+                                          : TextField(
+                                              key: ValueKey('english'),
+                                              controller:
+                                                  _textEditingControllerEng,
+                                              // Unique key for the TextField
+                                              decoration: InputDecoration(
+                                                floatingLabelBehavior:
+                                                    FloatingLabelBehavior.never,
+                                                labelText: "İngilizce",
+                                                border: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                color: Colors.blue,
+        ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
+                                                ),
+                                                focusedBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Colors.blue,
+                                                  ),
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      20.0),
+                                                ),
+                                                filled: true,
+                                                fillColor: Colors.white,
+                                                contentPadding:
+                                                    const EdgeInsets.all(16.0),
                                               ),
                                             ),
+                                    ),
+                                    const SizedBox(height: 10.0),
+                                    AnimatedSwitcher(
+                                      duration: Duration(seconds: 1),
+                                      transitionBuilder: (child, animation) {
+                                        return FadeTransition(
+                                          opacity: animation,
+                                          child: child,
+                                        );
+                                      },
+                                      child: swappedController.isSwapped
+                                          ? TextField(
+                                              key: ValueKey('english_2'),
+                                              controller:
+                                                  _textEditingControllerEng,
+                                              // Unique key for the TextField
+                                              decoration: InputDecoration(
+                                                floatingLabelBehavior:
+                                                    FloatingLabelBehavior.never,
+                                                labelText: "İngilizce",
+                                                border: OutlineInputBorder(
+        borderSide: BorderSide(
+        color: Colors.blue,
+        ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
+                                                ),
+                                                focusedBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Colors.blue,
+                                                  ),
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      20.0),
+                                                ),
+                                                filled: true,
+                                                fillColor: Colors.white,
+                                                contentPadding:
+                                                    const EdgeInsets.all(16.0),
+                                              ),
+                                            )
+                                          : TextField(
+                                              key: ValueKey('turkish_2'),
+                                              controller:
+                                                  _textEditingControllerTr,
+                                              // Unique key for the TextField
+                                              decoration: InputDecoration(
+                                                floatingLabelBehavior:
+                                                    FloatingLabelBehavior.never,
+                                                labelText: "Türkçe",
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
+                                                ),
+                                                focusedBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Colors.blue,
+                                                  ),
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      20.0),
+                                                ),
+                                                filled: true,
+                                                fillColor: Colors.white,
+                                                contentPadding:
+                                                    const EdgeInsets.all(16.0),
+                                              ),
+                                            ),
+                                    ),
+                                  ])),
+                                  const SizedBox(width: 10.0),
+                                  // Add spacing between input and button
+                                  Consumer<SwappedController>(
+                                    builder: (context, iconController, child) {
+                                      return AnimatedSwitcher(
+                                        duration: Duration(milliseconds: 500),
+                                        transitionBuilder: (child, animation) {
+                                          return RotationTransition(
+                                            turns: Tween<double>(
+                                              begin: 0.0,
+                                              end: 0.5,
+                                            ).animate(animation),
+                                            child: child,
                                           );
                                         },
-                                      ),
-                                    ],
+                                        child: IconButton(
+                                          key: ValueKey(
+                                              iconController.isSwapped),
+                                          onPressed: () {
+                                            swappedController
+                                                .toggleVisibility();
+                                            _textEditingControllerTr.clear();
+                                            _textEditingControllerEng.clear();
+                                          },
+                                          icon: SvgPicture.asset(
+                                            color: swappedController.isSwapped
+                                                ? Colors.blue.shade800
+                                                : Colors.blue.shade300,
+                                            'assets/icons/repeat.svg',
+                                            width: 30,
+                                            height: 30,
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   ),
-                                );
-                              },
+                                ],
+                              ),
                             ),
+                            if (context
+                                .watch<SearchWidgetController>()
+                                .isSearch)
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 18.0),
+                                child: CircularProgressIndicator(
+                                  color: Colors.blue,
+                                ),
+                              ), // Progress bar
+
                             SizedBox(
                               width: double.infinity,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.blue.shade400,
+                                  backgroundColor: Colors.blue.shade300,
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 14.0, horizontal: 40.0),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                 ),
-                                onPressed: () {
+                                onPressed: () async {
+                                  context
+                                      .read<SearchWidgetController>()
+                                      .isToSearchTrue();
+
                                   final english =
                                       _textEditingControllerEng.text.trim();
-                                  final turkish = _textEditingControllerTr.text.trim();
+                                  final turkish =
+                                      _textEditingControllerTr.text.trim();
 
-                                  if (swappedController.isSwapped == true && turkish.isNotEmpty) {
-
-                                    context.read<SearchWidgetController>().isToSearchTrue();
-                                    try {
-                                      context.read<TranslateCubit>().getData(turkish, "tr-en");
+                                  try {
+                                    if (swappedController.isSwapped &&
+                                        turkish.isNotEmpty) {
+                                      await context
+                                          .read<TranslateCubit>()
+                                          .getData(turkish, "tr-en");
                                       showDialog(
                                         context: context,
                                         builder: (context) {
-                                          return WordAddBlocBuilder(textEditingControllerEng: _textEditingControllerEng, screenHeight: screenHeight,isSwapped: swappedController.isSwapped);
+                                          return WordAddBlocBuilder(
+                                              textEditingControllerEng:
+                                                  _textEditingControllerEng,
+                                              screenHeight: screenHeight,
+                                              isSwapped:
+                                                  swappedController.isSwapped);
                                         },
                                       );
-
-
-                                    } catch (e) {
-                                      context.read<SearchWidgetController>().isToSearchFalse();
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                            content:
-                                                Text('Hata: ${e.toString()}')),
-                                      );
-                                    }
-                                  } else if(swappedController.isSwapped == false && english.isNotEmpty){
-                                    context.read<SearchWidgetController>().isToSearchTrue();
-                                    try {
-                                      context.read<TranslateCubit>().getData(english, "en-tr");
+                                    } else if (!swappedController.isSwapped &&
+                                        english.isNotEmpty) {
+                                      await context
+                                          .read<TranslateCubit>()
+                                          .getData(english, "en-tr");
                                       showDialog(
                                         context: context,
                                         builder: (context) {
-                                          return WordAddBlocBuilder(isSwapped: swappedController.isSwapped, screenHeight: screenHeight, textEditingControllerTr: _textEditingControllerTr);
+                                          return WordAddBlocBuilder(
+                                              textEditingControllerTr:
+                                                  _textEditingControllerTr,
+                                              screenHeight: screenHeight,
+                                              isSwapped:
+                                                  swappedController.isSwapped);
                                         },
                                       );
-
-
-                                    } catch (e) {
-                                      context.read<SearchWidgetController>().isToSearchFalse();
+                                    } else {
                                       ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                            content:
-                                            Text('Hata: ${e.toString()}')),
-                                      );
+                                          .showSnackBar(SnackBar(
+                                              content: Text(
+                                                  'Aramak için kelime girin')));
                                     }
-                                  }
-
-                                  else {
-                                    // Alanlar boş bırakılmışsa uyarı göster
+                                  } catch (e) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                           content:
-                                              Text('Aramak için kelime girin')),
+                                              Text('Hata: ${e.toString()}')),
                                     );
+                                  } finally {
+                                    context
+                                        .read<SearchWidgetController>()
+                                        .isToSearchFalse();
                                   }
                                 },
                                 child: Text(
@@ -344,10 +357,14 @@ class WordAddPage extends StatelessWidget {
                                     ),
                                   ),
                                   onPressed: () {
-                                    final english =
-                                        _textEditingControllerEng.text.trim().toLowerCase();
-                                    final turkish =
-                                        _textEditingControllerTr.text.trim().toLowerCase();
+                                    final english = _textEditingControllerEng
+                                        .text
+                                        .trim()
+                                        .toLowerCase();
+                                    final turkish = _textEditingControllerTr
+                                        .text
+                                        .trim()
+                                        .toLowerCase();
 
                                     if (english.isNotEmpty &&
                                         turkish.isNotEmpty) {

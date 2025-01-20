@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
-import '../controller/TrueFalseController.dart';
+
 import '../cubit/TranslateCubit.dart';
 
 class WordAddBlocBuilder extends StatelessWidget {
@@ -23,42 +22,53 @@ class WordAddBlocBuilder extends StatelessWidget {
     return BlocBuilder<TranslateCubit, List<String>>(
       builder: (context, list) {
         if (list.isEmpty) {
-          context.read<SearchWidgetController>().isToSearchFalse();
           return AlertDialog(
-            title: Text("Sonuçlar"),
-            content: Text("Veri bulunamadı."),
+            title: Text("Sonuçlar", style: TextStyle(color: Colors.blue.shade800)),
+            content: Text("Çeviri bulunamadı", style: TextStyle(color: Colors.blue.shade800)),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text("Kapat"),
+                child: Text("Kapat", style: TextStyle(color: Colors.blue.shade800)),
               ),
             ],
           );
         } else {
-          context.read<SearchWidgetController>().isToSearchFalse();
           return AlertDialog(
-            title: Text("Bulunan Kelimeler"),
+            title: Text("Bulunan Kelimeler", style: TextStyle(color: Colors.blue.shade800)),
             content: SizedBox(
               width: double.maxFinite,
               height: screenHeight / 4,
-              child: ListView.builder(
+              child: ListView.separated(
                 shrinkWrap: true,
                 itemCount: list.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text(list[index]),
+                    selected: true,
+                    selectedColor: Colors.blue.shade800,
+                    title: Text(
+                      list[index],
+                      textAlign: TextAlign.center,
+                    ),
                     onTap: () {
-                      isSwapped! ? textEditingControllerEng!.text = list[index].toLowerCase() : textEditingControllerTr!.text = list[index].toLowerCase();
+                      if (isSwapped!) {
+                        textEditingControllerEng!.text = list[index].toLowerCase();
+                      } else {
+                        textEditingControllerTr!.text = list[index].toLowerCase();
+                      }
                       Navigator.pop(context);
                     },
                   );
                 },
+                separatorBuilder: (context, index) => Divider(
+                  color: Colors.black,
+                  thickness: 1.0,
+                ),
               ),
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text("Kapat"),
+                child: Text("Kapat", style: TextStyle(color: Colors.blue.shade800)),
               ),
             ],
           );
