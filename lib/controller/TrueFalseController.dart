@@ -100,3 +100,17 @@ class SearchWidgetController extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+
+class ClickedController extends ChangeNotifier {
+  final TrueFalseModel _trueFalseModel;
+
+  ClickedController(this._trueFalseModel);
+
+  bool get isClicked => _trueFalseModel.isClicked;
+
+  void toggleVisibility() {
+    _trueFalseModel.isToClicked();
+    notifyListeners();
+  }
+}

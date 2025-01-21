@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import '../controller/WordController.dart';
 
 class WordsListView extends StatelessWidget {
+  const WordsListView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Consumer<WordController>(

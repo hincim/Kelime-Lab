@@ -6,9 +6,10 @@ class TrueFalseModel {
   bool isTextField;
   bool isDropped;
   bool isSearch;
+  bool isClicked;
 
-  TrueFalseModel({this.isPasswordVisible = true, this.isSwapped = false, this.isTextField = false, this.isDropped = false,
-    this.isSearch = false});
+  TrueFalseModel({this.isPasswordVisible = true, this.isSwapped = false, this.isTextField = false, this.isDropped = true,
+    this.isSearch = false, this.isClicked = false});
 
   void isPasswordVisibility() {
     isPasswordVisible = !isPasswordVisible;
@@ -32,5 +33,9 @@ class TrueFalseModel {
 
   void isFalse() {
     isSearch = false;
+  }
+
+  void isToClicked() {
+    isClicked = !isClicked;
   }
 }

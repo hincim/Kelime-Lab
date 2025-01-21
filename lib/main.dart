@@ -4,7 +4,6 @@ import 'package:ilk_proje/controller/IndicatorController.dart';
 import 'package:ilk_proje/controller/WordController.dart';
 import 'package:ilk_proje/cubit/TranslateCubit.dart';
 import 'package:ilk_proje/model/BottomNavigationModel.dart';
-import 'package:ilk_proje/views/ContactPage.dart';
 import 'package:ilk_proje/views/MainPage.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,6 +38,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => TextFieldController(TrueFalseModel()),),
         ChangeNotifierProvider(create: (context) => DroppedController(TrueFalseModel()),),
         ChangeNotifierProvider(create: (context) => SearchWidgetController(TrueFalseModel()),),
+        ChangeNotifierProvider(create: (context) => ClickedController(TrueFalseModel()),),
 
       ],
       child: MaterialApp(

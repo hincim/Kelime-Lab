@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 class WordListPage extends StatelessWidget {
   final TextEditingController _textEditingController = TextEditingController();
 
+  WordListPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
