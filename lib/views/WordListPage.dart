@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ilk_proje/controller/TrueFalseController.dart';
+import 'package:kelime_lab/controller/TrueFalseController.dart';
 import '../controller/WordController.dart';
 import '../util/WordsListView.dart';
 import 'WordAddPage.dart';

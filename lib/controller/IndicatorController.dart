@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ilk_proje/model/IndicatorModel.dart';
 
+import '../model/IndicatorModel.dart';
 class IndicatorController extends ChangeNotifier {
   final IndicatorModel _indicatorModel;
 

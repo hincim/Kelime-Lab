@@ -1,8 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:ilk_proje/db/WordDAO.dart';
-
+import '../db/WordDAO.dart';
 import '../model/Word.dart';
 
 class WordController with ChangeNotifier {
@@ -12,10 +11,14 @@ class WordController with ChangeNotifier {
   Word _correctWord = Word(english: '', turkish: '');
   List<Word> options = [];
 
+  bool wordLoading = true;
+
   List<Word> get words => _words;
   Word get correctWord => _correctWord;
 
+
   Future<void> fetchWords() async {
+    notifyListeners();
     try {
       _words = await _wordDAO.getAllWords();
       _askedWords.clear(); // Kelime listesini sıfırlarken sorulmuş kelimeleri de temizle
@@ -23,6 +26,8 @@ class WordController with ChangeNotifier {
     } catch (e) {
       debugPrint('Error fetching words: $e');
     }
+    wordLoading = false;
+    notifyListeners();
   }
 
   Future<void> fetchWordBySearch(String query) async {

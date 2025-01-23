@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:ilk_proje/controller/BottomNavigationController.dart';
-import 'package:ilk_proje/controller/TrueFalseController.dart';
-import 'package:ilk_proje/controller/WordController.dart';
-import 'package:ilk_proje/cubit/TranslateCubit.dart';
-import 'package:ilk_proje/views/ContactPage.dart';
-import 'package:ilk_proje/views/ToolsPage.dart';
-import 'package:ilk_proje/views/SolutionPage.dart';
-import 'package:ilk_proje/views/WordListPage.dart';
+import 'package:kelime_lab/controller/BottomNavigationController.dart';
+import 'package:kelime_lab/controller/TrueFalseController.dart';
+import 'package:kelime_lab/controller/WordController.dart';
+import 'package:kelime_lab/cubit/TranslateCubit.dart';
+import 'package:kelime_lab/views/ContactPage.dart';
+import 'package:kelime_lab/views/ToolsPage.dart';
+import 'package:kelime_lab/views/SolutionPage.dart';
+import 'package:kelime_lab/views/WordListPage.dart';
 import 'package:provider/provider.dart';
 
 

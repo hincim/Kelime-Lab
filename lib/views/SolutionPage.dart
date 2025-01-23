@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ilk_proje/views/MultipleChoicePage.dart';
+import 'package:kelime_lab/views/MultipleChoicePage.dart';
 
 import '../controller/WordController.dart';
 import 'WordCardsPage.dart';

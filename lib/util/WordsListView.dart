@@ -9,6 +9,11 @@ class WordsListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<WordController>(
       builder: (context, wordController, child) {
+        if(wordController.wordLoading){
+          return const Center(child: CircularProgressIndicator(
+            color: Colors.blue,
+          ));
+        }
         if(wordController.words.isEmpty){
           return Text("Kelime bulunamadı");
         }

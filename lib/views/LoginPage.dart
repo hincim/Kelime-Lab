@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ilk_proje/controller/IndicatorController.dart';
-import 'package:ilk_proje/controller/TrueFalseController.dart';
-import 'package:ilk_proje/model/IndicatorModel.dart';
-import 'package:ilk_proje/util/Toast.dart';
-import 'package:ilk_proje/views/MainPage.dart';
+import 'package:kelime_lab/controller/IndicatorController.dart';
+import 'package:kelime_lab/controller/TrueFalseController.dart';
+import 'package:kelime_lab/model/IndicatorModel.dart';
+import 'package:kelime_lab/util/Toast.dart';
+import 'package:kelime_lab/views/MainPage.dart';
 import 'package:provider/provider.dart';
 import 'SignInPage.dart';
 

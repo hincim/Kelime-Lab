@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ilk_proje/views/LoginPage.dart';
+import 'package:kelime_lab/views/LoginPage.dart';
 
 class SplashSecreen extends StatefulWidget {
   const SplashSecreen({super.key});

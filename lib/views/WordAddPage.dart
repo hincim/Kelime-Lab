@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ilk_proje/cubit/TranslateCubit.dart';
-import 'package:ilk_proje/model/Word.dart';
-import 'package:ilk_proje/util/WordAddBlocBuilder.dart';
+import 'package:kelime_lab/cubit/TranslateCubit.dart';
+import 'package:kelime_lab/model/Word.dart';
+import 'package:kelime_lab/util/WordAddBlocBuilder.dart';
 import 'package:provider/provider.dart';
-import 'package:ilk_proje/controller/TrueFalseController.dart';
+import 'package:kelime_lab/controller/TrueFalseController.dart';
 import '../controller/WordController.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

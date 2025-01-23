@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ilk_proje/model/BottomNavigationModel.dart';
+import 'package:kelime_lab/model/BottomNavigationModel.dart';
 
 class BottomNavigationController extends ChangeNotifier {
   final BottomNavigationModel _bottomNavigationModel;

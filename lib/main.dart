@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ilk_proje/controller/BottomNavigationController.dart';
-import 'package:ilk_proje/controller/CounterCont%C4%B1oller.dart';
-import 'package:ilk_proje/controller/IndicatorController.dart';
-import 'package:ilk_proje/controller/WordController.dart';
-import 'package:ilk_proje/cubit/TranslateCubit.dart';
-import 'package:ilk_proje/model/BottomNavigationModel.dart';
-import 'package:ilk_proje/views/MainPage.dart';
+import 'package:kelime_lab/controller/BottomNavigationController.dart';
+import 'package:kelime_lab/controller/CounterCont%C4%B1oller.dart';
+import 'package:kelime_lab/controller/IndicatorController.dart';
+import 'package:kelime_lab/controller/WordController.dart';
+import 'package:kelime_lab/cubit/TranslateCubit.dart';
+import 'package:kelime_lab/model/BottomNavigationModel.dart';
+import 'package:kelime_lab/views/MainPage.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -47,6 +47,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Kelime Lab',
         theme: ThemeData(
+          fontFamily: "JoseFinSans",
           primarySwatch: Colors.blue,
         ),
         home: Mainpage(),

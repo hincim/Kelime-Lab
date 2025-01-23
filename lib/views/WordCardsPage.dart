@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ilk_proje/controller/TrueFalseController.dart';
-import 'package:ilk_proje/controller/WordController.dart';
+import 'package:kelime_lab/controller/TrueFalseController.dart';
+import 'package:kelime_lab/controller/WordController.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_tts/flutter_tts.dart';

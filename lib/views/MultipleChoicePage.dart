@@ -1,9 +1,9 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:ilk_proje/controller/CounterCont%C4%B1oller.dart';
-import 'package:ilk_proje/controller/WordController.dart';
-import 'package:ilk_proje/views/ResultPage.dart';
+import 'package:kelime_lab/controller/CounterCont%C4%B1oller.dart';
+import 'package:kelime_lab/controller/WordController.dart';
+import 'package:kelime_lab/views/ResultPage.dart';
 import 'package:provider/provider.dart';
 
 class MultipleChoicePage extends StatelessWidget {
