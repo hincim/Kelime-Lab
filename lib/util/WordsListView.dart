@@ -28,7 +28,9 @@ class WordsListView extends StatelessWidget {
               onDismissed: (direction) {
                 wordController.deleteWord(word.id!);
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("${word.english} kelimesi silindi.")),
+                  SnackBar(
+                      duration: Duration(milliseconds: 500),
+                      content: Text("${word.english} kelimesi silindi.")),
                 );
               },
               child: Card(

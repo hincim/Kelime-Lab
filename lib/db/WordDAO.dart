@@ -67,7 +67,6 @@ class WordDAO {
     try {
       final db = await database;
 
-      // Eğer bir arama sorgusu varsa, bu sorguyu 'english' ve 'turkish' kolonlarına ekleyelim.
       final result = await db.query(
         'words',
         where: 'english LIKE ? OR turkish LIKE ?',
@@ -97,6 +96,26 @@ class WordDAO {
       await db.delete('words');
     } catch (e) {
       throw Exception('Kelimeler silinemedi: $e');
+    }
+  }
+
+  Future<Word> getCorrectWord() async {
+    try {
+      final db = await database;
+      final result = await db.query('words', orderBy: 'RANDOM()',limit: 1);
+      return Word.fromMap(result.first);
+    } catch (e) {
+      throw Exception('Kelimeler alınamadı: $e');
+    }
+  }
+
+  Future<List<Word>> getRandomOptionsWords(int id) async {
+    try {
+      final db = await database;
+      final result = await db.query('words', where: 'id != ?', whereArgs: [id], orderBy: 'RANDOM()', limit: 3);
+      return result.map((map) => Word.fromMap(map)).toList();
+    } catch (e) {
+      throw Exception('Kelimeler alınamadı: $e');
     }
   }
 }

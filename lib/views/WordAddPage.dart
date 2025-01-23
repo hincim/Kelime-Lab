@@ -322,12 +322,14 @@ class WordAddPage extends StatelessWidget {
                                     } else {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(SnackBar(
+                                          duration: Duration(milliseconds: 500),
                                               content: Text(
                                                   'Aramak için kelime girin')));
                                     }
                                   } catch (e) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
+                                  duration: Duration(milliseconds: 500),
                                           content:
                                               Text('Hata: ${e.toString()}')),
                                     );
@@ -379,6 +381,7 @@ class WordAddPage extends StatelessWidget {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(
+                                              duration: Duration(milliseconds: 500),
                                               content: Text('Kelime eklendi')),
                                         );
                                         _textEditingControllerTr.clear();
@@ -387,6 +390,7 @@ class WordAddPage extends StatelessWidget {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(
+                                    duration: Duration(milliseconds: 500),
                                               content: Text(
                                                   'Hata: ${e.toString()}')),
                                         );
@@ -396,6 +400,7 @@ class WordAddPage extends StatelessWidget {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
+                                    duration: Duration(milliseconds: 500),
                                             content: Text(
                                                 'Lütfen tüm alanları doldurun!')),
                                       );

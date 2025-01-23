@@ -106,7 +106,7 @@ class WordCardsPage extends StatelessWidget {
                               ),
                               child: Center(
                                 child: AnimatedSwitcher(
-                                  duration: Duration(milliseconds: 500), // Animasyon süresi
+                                  duration: Duration(milliseconds: 400), // Animasyon süresi
                                   transitionBuilder: (Widget child, Animation<double> animation) {
                                     return SlideTransition(
                                       position: Tween<Offset>(

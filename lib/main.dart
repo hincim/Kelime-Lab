@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ilk_proje/controller/BottomNavigationController.dart';
+import 'package:ilk_proje/controller/CounterCont%C4%B1oller.dart';
 import 'package:ilk_proje/controller/IndicatorController.dart';
 import 'package:ilk_proje/controller/WordController.dart';
 import 'package:ilk_proje/cubit/TranslateCubit.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => DroppedController(TrueFalseModel()),),
         ChangeNotifierProvider(create: (context) => SearchWidgetController(TrueFalseModel()),),
         ChangeNotifierProvider(create: (context) => ClickedController(TrueFalseModel()),),
+        ChangeNotifierProvider(create: (context) => CounterController()),
 
       ],
       child: MaterialApp(
