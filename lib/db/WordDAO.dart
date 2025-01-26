@@ -118,5 +118,15 @@ class WordDAO {
       throw Exception('Kelimeler alınamadı: $e');
     }
   }
+
+  Future<List<Word>> getRandomWords() async {
+    try {
+      final db = await database;
+      final result = await db.query('words', orderBy: 'RANDOM()');
+      return result.map((map) => Word.fromMap(map)).toList();
+    } catch (e) {
+      throw Exception('Kelimeler alınamadı: $e');
+    }
+  }
 }
 

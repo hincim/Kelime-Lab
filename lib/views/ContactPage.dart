@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kelime_lab/views/LoginPage.dart';
 import 'package:provider/provider.dart';
 
 import '../controller/TrueFalseController.dart';
@@ -31,7 +32,9 @@ class ContactPage extends StatelessWidget {
                     Visibility(
                       visible: !controller.isDropped,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Loginpage()));
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           elevation: 3,

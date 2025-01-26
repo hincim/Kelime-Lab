@@ -6,6 +6,7 @@ import 'package:kelime_lab/controller/WordController.dart';
 import 'package:kelime_lab/cubit/TranslateCubit.dart';
 import 'package:kelime_lab/model/BottomNavigationModel.dart';
 import 'package:kelime_lab/views/MainPage.dart';
+import 'package:kelime_lab/views/SplashScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
           fontFamily: "JoseFinSans",
           primarySwatch: Colors.blue,
         ),
-        home: Mainpage(),
+        home: SplashSecreen(),
       ),
     );
 

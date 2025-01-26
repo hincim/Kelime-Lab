@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kelime_lab/controller/TrueFalseController.dart';
+import 'package:kelime_lab/views/MultipleChoicePage.dart';
 import '../controller/WordController.dart';
 import '../util/WordsListView.dart';
 import 'WordAddPage.dart';
@@ -13,7 +14,6 @@ class WordListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-
     return Consumer<TextFieldController>(
       builder: (context, controller, child) {
         return Scaffold(
@@ -151,6 +151,12 @@ class WordListPage extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) => WordAddPage(),
                         ),
+                      ).then(
+                        (value) async {
+                          if (value == true) {
+                            await context.read<WordController>().fetchWords();
+                          }
+                        },
                       );
                     },
                     style: ElevatedButton.styleFrom(

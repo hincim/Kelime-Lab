@@ -377,7 +377,7 @@ class WordAddPage extends StatelessWidget {
                                                 listen: false)
                                             .addWord(word)
                                             .then(
-                                                (_) => Navigator.pop(context));
+                                                (_) => Navigator.pop(context, true));
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(

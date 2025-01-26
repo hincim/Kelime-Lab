@@ -6,29 +6,24 @@ import '../model/Word.dart';
 
 class WordController with ChangeNotifier {
   final WordDAO _wordDAO = WordDAO();
+  List<Word> _randomWord = [];
   List<Word> _words = [];
-  List<Word> _askedWords = []; // Sorulmuş kelimeler
-  Word _correctWord = Word(english: '', turkish: '');
-  List<Word> options = [];
+  List<Word> _options = [];
 
-  bool wordLoading = true;
 
   List<Word> get words => _words;
-  Word get correctWord => _correctWord;
-
+  List<Word> get randomWord => _randomWord;
+  List<Word> get options => _options;
 
   Future<void> fetchWords() async {
-    notifyListeners();
     try {
       _words = await _wordDAO.getAllWords();
-      _askedWords.clear(); // Kelime listesini sıfırlarken sorulmuş kelimeleri de temizle
       notifyListeners();
     } catch (e) {
       debugPrint('Error fetching words: $e');
     }
-    wordLoading = false;
-    notifyListeners();
   }
+
 
   Future<void> fetchWordBySearch(String query) async {
     try {
@@ -66,25 +61,23 @@ class WordController with ChangeNotifier {
     }
   }
 
-  Future<void> fetchRandomWords() async {
+  Future<void> getRandomWord() async {
     try {
-      List<Word> remainingWords = _words.where((word) => !_askedWords.contains(word)).toList();
-
-      if (remainingWords.isEmpty) {
-        _askedWords.clear();
-        remainingWords = List.from(_words);
-      }
-
-      _correctWord = remainingWords[Random().nextInt(remainingWords.length)];
-      _askedWords.add(_correctWord);
-
-      options = await _wordDAO.getRandomOptionsWords(_correctWord.id!);
-      options.add(_correctWord);
-      options.shuffle();
-
+      _randomWord = await _wordDAO.getRandomWords();
       notifyListeners();
     } catch (e) {
       debugPrint('Error fetching random words: $e');
     }
   }
+
+  Future<void> getRandomOptionsWords(int id) async {
+    try {
+      _options = await _wordDAO.getRandomOptionsWords(id);
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Error fetching random options words: $e');
+    }
+  }
 }
+
+
